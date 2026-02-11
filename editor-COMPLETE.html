@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>עריכת ספר - מכון תוצאות - גרסה מלאה</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700&family=Frank+Ruhl+Libre:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/earlyaccess/opensanshebrew.css" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #F4E4C1;
+            --gold-dark: #B8941F;
+            --brown-dark: #3E2723;
+            --brown-medium: #5D4037;
+            --brown-light: #8D6E63;
+            --bronze: #CD7F32;
+            --bronze-light: #E8B88A;
+            --bronze-dark: #A0522D;
+            --burgundy: #800020;
+            --burgundy-light: #A0293A;
+            --olive: #6B8E23;
+            --olive-light: #9ACD32;
+            --cream: #FAF7F2;
+            --ivory: #FFFFF0;
+            --beige: #F5F5DC;
+            
+            --gradient-gold: linear-gradient(135deg, #D4AF37 0%, #F4E4C1 50%, #B8941F 100%);
+            --gradient-brown: linear-gradient(135deg, #3E2723 0%, #5D4037 50%, #8D6E63 100%);
+            --gradient-bronze: linear-gradient(135deg, #CD7F32 0%, #E8B88A 50%, #A0522D 100%);
+            --gradient-elegant: linear-gradient(135deg, #FAF7F2 0%, #FFFFF0 100%);
+        }
+
+        body {
+            font-family: 'Heebo', sans-serif;
+            background: var(--cream);
+            color: var(--brown-dark);
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        body.fullscreen .header,
+        body.fullscreen .page-nav-bar-top {
+            display: none !important;
+        }
+
+        body.fullscreen .main-container {
+            height: 100vh !important;
+        }
+
+        /* Header */
+        .header {
+            background: var(--gradient-brown);
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            position: relative;
+            z-index: 100;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-gold);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .book-title {
+            color: var(--gold);
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .header-left {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .btn {
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            font-family: 'Heebo', sans-serif;
+        }
+
+        .btn-primary {
+            background: var(--gradient-gold);
+            color: var(--brown-dark);
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--gradient-bronze);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Page Navigation Bar - PROMINENT AT TOP */
+        .page-nav-bar-top {
+            background: linear-gradient(135deg, #FFFFFF 0%, #FAF7F2 100%);
+            padding: 1.5rem 2rem;
+            border-bottom: 4px solid var(--gold);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .nav-btn-huge {
+            padding: 1.25rem 3rem;
+            font-size: 1.4rem;
+            font-weight: 700;
+            border: 3px solid var(--bronze);
+            background: white;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Heebo', sans-serif;
+        }
+
+        .nav-btn-huge.primary {
+            background: var(--gradient-gold);
+            border-color: var(--gold-dark);
+            color: var(--brown-dark);
+        }
+
+        .nav-btn-huge:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(205,127,50,0.3);
+        }
+
+        .nav-btn-huge:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .page-info-center {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .page-number-huge {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--gold);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .page-separator {
+            font-size: 2rem;
+            color: var(--brown-light);
+        }
+
+        .page-total-display {
+            font-size: 1.5rem;
+            color: var(--brown-medium);
+            font-weight: 600;
+        }
+
+        .quick-actions {
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+        }
+
+        .page-input-big {
+            width: 100px;
+            padding: 0.75rem;
+            border: 3px solid var(--gold);
+            border-radius: 8px;
+            text-align: center;
+            font-family: 'Heebo', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .btn-jump, .btn-list {
+            padding: 0.75rem 1.5rem;
+            background: var(--gradient-bronze);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .btn-jump:hover, .btn-list:hover {
+            background: var(--bronze-dark);
+            transform: scale(1.05);
+        }
+
+        /* Main Container */
+        .main-container {
+            display: flex;
+            height: calc(100vh - 280px);
+            background: var(--cream);
+            position: relative;
+        }
+
+        /* Layout modes */
+        .main-container.layout-1 .bottom-image-panel {
+            display: none;
+        }
+
+        .main-container.layout-1 .top-image-panel {
+            height: 100% !important;
+        }
+
+        .main-container.layout-2 {
+            flex-direction: column;
+        }
+
+        .main-container.layout-2 .images-column {
+            width: 100%;
+            height: 50%;
+            flex-direction: row;
+        }
+
+        .main-container.layout-2 .editor-column {
+            width: 100%;
+            height: 50%;
+        }
+
+        /* Panels */
+        .images-column {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            border-left: 3px solid var(--gold);
+            position: relative;
+        }
+
+        .editor-column {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            background: white;
+        }
+
+        .panel {
+            position: relative;
+            overflow: hidden;
+            background: white;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .panel-header {
+            background: var(--gradient-brown);
+            padding: 0.5rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+        }
+
+        .panel-title {
+            color: var(--gold);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .panel-controls {
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .panel-btn {
+            width: 28px;
+            height: 28px;
+            border: none;
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+        }
+
+        .panel-btn:hover {
+            background: var(--gold);
+            color: var(--brown-dark);
+        }
+
+        .panel-content {
+            flex: 1;
+            overflow: auto;
+            padding: 1rem;
+            background: #f8f9fa;
+            position: relative;
+        }
+
+        .image-wrapper {
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            position: relative;
+            cursor: grab;
+        }
+
+        .image-wrapper:active {
+            cursor: grabbing;
+        }
+
+        .image-container {
+            display: inline-block;
+            position: relative;
+        }
+
+        .image-placeholder {
+            width: 800px;
+            height: 600px;
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 1rem;
+            color: #999;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        /* Text Editor */
+        .editor-header {
+            background: var(--gradient-brown);
+            padding: 0.75rem 1.5rem;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .editor-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .stats {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 0.85rem;
+        }
+
+        .text-editor {
+            flex: 1;
+            padding: 2rem;
+            border: none;
+            font-family: 'David', 'Frank Ruhl Libre', 'Open Sans Hebrew', serif;
+            font-size: 20px;
+            line-height: 2.2;
+            resize: none;
+            direction: rtl;
+            background: white;
+            color: var(--brown-dark);
+        }
+
+        .text-editor:focus {
+            outline: none;
+        }
+
+        /* Highlight current box */
+        .box-highlight {
+            border: 3px solid #FFD700 !important;
+            background: rgba(255, 215, 0, 0.2) !important;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.6) !important;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Markers */
+        .marker-uncertain {
+            background: rgba(255, 0, 0, 0.2);
+            border-bottom: 2px wavy red;
+        }
+
+        .marker-maybe {
+            background: rgba(255, 165, 0, 0.2);
+            border-bottom: 2px dotted orange;
+        }
+
+        .marker-missing {
+            background: rgba(128, 128, 128, 0.3);
+            color: #666;
+            font-style: italic;
+        }
+
+        /* Search Modal */
+        .search-modal-full {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(26, 40, 71, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .search-modal-full.active {
+            display: flex;
+        }
+
+        .search-content-full {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            max-width: 800px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .search-header-full {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid var(--gold);
+        }
+
+        .search-header-full h2 {
+            color: var(--brown-dark);
+            font-size: 1.8rem;
+        }
+
+        .close-btn {
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: var(--burgundy);
+            color: white;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: var(--burgundy-light);
+            transform: rotate(90deg);
+        }
+
+        .search-inputs {
+            display: grid;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .search-inputs input {
+            padding: 1rem;
+            border: 2px solid var(--cream);
+            border-radius: 8px;
+            font-family: 'Heebo', sans-serif;
+            font-size: 1rem;
+        }
+
+        .search-inputs input:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .search-direction {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: var(--cream);
+            border-radius: 8px;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .search-direction label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .warning-icon {
+            color: var(--burgundy);
+            font-size: 1.2rem;
+        }
+
+        .search-actions-full {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .search-actions-full button {
+            padding: 1rem;
+            border: none;
+            background: var(--gradient-bronze);
+            color: white;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .search-actions-full button:hover {
+            background: var(--bronze-dark);
+            transform: translateY(-2px);
+        }
+
+        .templates-section {
+            background: var(--cream);
+            padding: 1.5rem;
+            border-radius: 12px;
+        }
+
+        .templates-section h3 {
+            margin-bottom: 1rem;
+            color: var(--brown-dark);
+        }
+
+        .template-item {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 0.75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 2px solid var(--cream);
+        }
+
+        .template-item:hover {
+            border-color: var(--gold);
+        }
+
+        .template-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .template-actions button {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .btn-use {
+            background: var(--gradient-gold);
+            color: var(--brown-dark);
+        }
+
+        .btn-edit {
+            background: var(--gradient-bronze);
+            color: white;
+        }
+
+        .btn-delete {
+            background: var(--burgundy);
+            color: white;
+        }
+
+        /* Layout Switcher */
+        .layout-switcher {
+            position: fixed;
+            top: 50%;
+            right: 1rem;
+            transform: translateY(-50%);
+            background: white;
+            padding: 0.75rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+            z-index: 200;
+        }
+
+        .layout-switcher button {
+            display: block;
+            width: 100%;
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.5rem;
+            border: 2px solid var(--cream);
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .layout-switcher button:hover {
+            border-color: var(--gold);
+            background: var(--gold-light);
+        }
+
+        .layout-switcher button.active {
+            background: var(--gradient-gold);
+            border-color: var(--gold-dark);
+        }
+
+        /* Fullscreen Toggle */
+        .fullscreen-toggle {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 56px;
+            height: 56px;
+            background: var(--gradient-bronze);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(205, 127, 50, 0.4);
+            z-index: 500;
+            transition: all 0.3s ease;
+        }
+
+        .fullscreen-toggle:hover {
+            transform: scale(1.1);
+            background: var(--bronze-dark);
+        }
+
+        /* Page List Modal */
+        .page-list-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(26, 40, 71, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 600;
+            overflow-y: auto;
+        }
+
+        .page-list-modal.active {
+            display: block;
+        }
+
+        .thumbnails-content {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 2rem;
+        }
+
+        .thumbnails-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            color: white;
+        }
+
+        .thumbnails-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .thumbnail-item {
+            aspect-ratio: 0.7;
+            border: 3px solid var(--cream);
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            background: white;
+            position: relative;
+        }
+
+        .thumbnail-item:hover {
+            border-color: var(--gold);
+            background: var(--gold-light);
+            transform: translateY(-4px) scale(1.05);
+        }
+
+        .thumbnail-item.current {
+            border-color: #10b981;
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+        }
+
+        .thumbnail-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--brown-dark);
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gradient-gold);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            box-shadow: 0 8px 24px rgba(212, 175, 55, 0.4);
+            font-weight: 600;
+            z-index: 1000;
+            display: none;
+            animation: slideUp 0.3s ease;
+        }
+
+        .notification.show {
+            display: block;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateX(-50%) translateY(30px); }
+            to { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+
+        /* Resize handles */
+        .resize-handle {
+            position: absolute;
+            background: var(--gold);
+            z-index: 10;
+        }
+
+        .resize-handle.horizontal {
+            height: 4px;
+            left: 0;
+            right: 0;
+            cursor: ns-resize;
+            bottom: -2px;
+        }
+
+        .resize-handle.vertical {
+            width: 4px;
+            top: 0;
+            bottom: 0;
+            cursor: ew-resize;
+            right: -2px;
+        }
+
+        .resize-handle:hover {
+            background: var(--gold-dark);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-right">
+            <div class="book-title">📖 ספר התניא - חלק א</div>
+        </div>
+        <div class="header-left">
+            <button class="btn btn-secondary" onclick="goBack()">← חזור לספרים</button>
+            <button class="btn btn-secondary" onclick="goToLastPosition()">📍 חזור למקום שהפסקתי</button>
+            <button class="btn btn-secondary" onclick="toggleSearch()">🔍 חיפוש והחלפה</button>
+            <button class="btn btn-primary" onclick="saveDocument()">💾 שמור</button>
+        </div>
+    </header>
+
+    <!-- Page Navigation - PROMINENT -->
+    <div class="page-nav-bar-top">
+        <div class="nav-container">
+            <button class="nav-btn-huge" onclick="previousPage()" id="prevBtnTop">
+                ◀◀ עמוד קודם
+            </button>
+            
+            <div class="page-info-center">
+                <div class="page-number-huge" id="currentPageHuge">15</div>
+                <div class="page-separator">/</div>
+                <div class="page-total-display" id="totalPagesDisplay">120</div>
+            </div>
+            
+            <button class="nav-btn-huge primary" onclick="nextPage()" id="nextBtnTop">
+                עמוד הבא ▶▶
+            </button>
+        </div>
+        
+        <div class="quick-actions">
+            <input type="number" class="page-input-big" placeholder="עמוד..." id="pageJump" min="1" max="120">
+            <button class="btn-jump" onclick="jumpToPage()">קפוץ</button>
+            <button class="btn-list" onclick="showPageList()">📋 כל העמודים</button>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="main-container layout-3" id="mainContainer">
+        <!-- Images Column -->
+        <div class="images-column" id="imagesColumn">
+            <!-- Top Image -->
+            <div class="panel top-image-panel" id="topPanel" style="height: 100%;">
+                <div class="panel-header">
+                    <div class="panel-title">🖼️ תמונת מקור</div>
+                    <div class="panel-controls">
+                        <button class="panel-btn" onclick="zoomPanel('top', -10)">−</button>
+                        <button class="panel-btn" onclick="zoomPanel('top', 10)">+</button>
+                        <button class="panel-btn" onclick="resetPanelZoom('top')">⟲</button>
+                    </div>
+                </div>
+                <div class="panel-content">
+                    <div class="image-wrapper" id="topImageWrapper" onmousedown="startPan(event, 'top')">
+                        <div class="image-container" id="topImageContainer">
+                            <div class="image-placeholder">
+                                <div style="font-size: 3rem;">📄</div>
+                                <div style="font-weight: 600;">תמונת PDF</div>
+                                <div style="font-size: 0.9rem;">Ctrl+גלגל לזום | גרור להזזה</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="resize-handle vertical right" onmousedown="startResize(event, 'imagesColumn', 'horizontal')"></div>
+        </div>
+
+        <!-- Editor Column -->
+        <div class="editor-column" id="editorColumn">
+            <div class="editor-header">
+                <div class="editor-title">✏️ עריכת טקסט</div>
+                <div class="stats">
+                    <span>📝 <span id="wordCount">0</span> מילים</span>
+                    <span>📄 <span id="charCount">0</span> תווים</span>
+                    <span>📊 <span id="lineCount">0</span> שורות</span>
+                </div>
+            </div>
+            
+            <textarea 
+                class="text-editor" 
+                id="textEditor" 
+                placeholder="הטקסט המומר יופיע כאן..."
+                oninput="updateStats()"
+                onclick="syncCursorToImages()"
+                onkeyup="syncCursorToImages()"
+            >מטמא כמת שלם, ואם לאו הרי הוא כשאר עצמות המתים שאין עליהן טומאה.</textarea>
+        </div>
+    </div>
+
+    <!-- Search Modal -->
+    <div class="search-modal-full" id="searchModalFull">
+        <div class="search-content-full">
+            <div class="search-header-full">
+                <h2>🔍 חיפוש והחלפה מתקדם</h2>
+                <button class="close-btn" onclick="toggleSearch()">×</button>
+            </div>
+            
+            <div class="search-inputs">
+                <input type="text" id="searchText" placeholder="מה לחפש...">
+                <input type="text" id="replaceText" placeholder="במה להחליף...">
+            </div>
+            
+            <div class="search-direction">
+                <label>
+                    <input type="radio" name="direction" value="down" checked> למטה ⬇
+                </label>
+                <label>
+                    <input type="radio" name="direction" value="up"> 
+                    למעלה ⬆ 
+                    <span class="warning-icon" title="שים לב! עלול למחוק עבודה">⚠️</span>
+                </label>
+            </div>
+            
+            <div class="search-actions-full">
+                <button onclick="findNext()">מצא הבא</button>
+                <button onclick="replaceOne()">החלף אחד</button>
+                <button onclick="replaceAll()">החלף הכל</button>
+                <button onclick="replaceInBook()">החלף בכל הספר</button>
+            </div>
+            
+            <div class="templates-section">
+                <h3>תבניות</h3>
+                <div id="templatesList"></div>
+                <button class="btn btn-primary" onclick="addTemplate()" style="margin-top: 1rem; width: 100%;">
+                    ➕ הוסף תבנית חדשה
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page List Modal -->
+    <div class="page-list-modal" id="pageListModal">
+        <div class="thumbnails-content">
+            <div class="thumbnails-header">
+                <h2>📋 כל העמודים (120)</h2>
+                <button class="close-btn" onclick="closePageList()">×</button>
+            </div>
+            <div class="thumbnails-grid" id="pageGrid"></div>
+        </div>
+    </div>
+
+    <!-- Layout Switcher -->
+    <div class="layout-switcher">
+        <button onclick="setLayout(1)">תמונה + טקסט</button>
+        <button onclick="setLayout(2)">2 שכבות</button>
+        <button onclick="setLayout(3)" class="active">3 חלונות</button>
+    </div>
+
+    <!-- Fullscreen Toggle -->
+    <button class="fullscreen-toggle" onclick="toggleFullscreen()" title="F11 - מסך מלא">
+        ⛶
+    </button>
+
+    <!-- Notification -->
+    <div class="notification" id="notification"></div>
+
+    <script>
+        // ===== STATE =====
+        let currentPage = 15;
+        let totalPages = 120;
+        let autoSaveTimer = null;
+        let lastPosition = { page: 15, scrollTop: 0 };
+        let panelStates = { top: { zoom: 100 } };
+        let boxes = [];
+        let selectedBox = null;
+        let isDragging = false;
+        let isPanning = false;
+        
+        // ===== MARKERS =====
+        const MARKERS = {
+            UNCERTAIN: '◆',      // תו לא ברור
+            MAYBE: '◇',          // ספק
+            MISSING: '⟪חסר⟫',   // שורה חסרה
+            BLOCK: '▓'           // בלוק לא זוהה
+        };
+
+        // ===== TEMPLATES =====
+        let templates = [
+            { search: 'אלוקים', replace: 'אלוהים' },
+            { search: 'מצוה', replace: 'מצווה' },
+            { search: 'ה\'', replace: 'הקב"ה' }
+        ];
+
+        // Load templates from localStorage
+        const savedTemplates = localStorage.getItem('searchTemplates');
+        if (savedTemplates) {
+            templates = JSON.parse(savedTemplates);
+        }
+
+        // ===== INITIALIZATION =====
+        function init() {
+            updateStats();
+            updatePageInfo();
+            setupAutoSave();
+            setupWheelZoom();
+            loadSavedContent();
+            generatePageList();
+            renderTemplates();
+        }
+
+        // ===== AUTO-SAVE =====
+        function setupAutoSave() {
+            setInterval(() => autoSave(), 30000);
+            window.addEventListener('beforeunload', () => {
+                autoSave();
+                saveLastPosition();
+            });
+        }
+
+        function autoSave() {
+            const text = document.getElementById('textEditor').value;
+            const timestamp = new Date().toLocaleTimeString('he-IL');
+            
+            localStorage.setItem(`page_${currentPage}`, text);
+            localStorage.setItem(`page_${currentPage}_backup`, text);
+            localStorage.setItem(`page_${currentPage}_timestamp`, timestamp);
+            
+            showNotification(`💾 נשמר אוטומטית ב-${timestamp}`);
+        }
+
+        function saveDocument() {
+            autoSave();
+            showNotification('✅ הספר נשמר בהצלחה!');
+        }
+
+        function loadSavedContent() {
+            const savedText = localStorage.getItem(`page_${currentPage}`);
+            if (savedText) {
+                document.getElementById('textEditor').value = savedText;
+                updateStats();
+            }
+        }
+
+        // ===== PAGE NAVIGATION =====
+        function updatePageInfo() {
+            document.getElementById('currentPageHuge').textContent = currentPage;
+            document.getElementById('totalPagesDisplay').textContent = totalPages;
+            document.getElementById('pageJump').value = currentPage;
+            
+            document.getElementById('prevBtnTop').disabled = currentPage === 1;
+            document.getElementById('nextBtnTop').disabled = currentPage === totalPages;
+        }
+
+        function previousPage() {
+            if (currentPage > 1) {
+                autoSave();
+                saveLastPosition();
+                currentPage--;
+                updatePageInfo();
+                loadPage(currentPage);
+            }
+        }
+
+        function nextPage() {
+            if (currentPage < totalPages) {
+                autoSave();
+                saveLastPosition();
+                currentPage++;
+                updatePageInfo();
+                loadPage(currentPage);
+            }
+        }
+
+        function jumpToPage() {
+            const page = parseInt(document.getElementById('pageJump').value);
+            if (page >= 1 && page <= totalPages && page !== currentPage) {
+                autoSave();
+                saveLastPosition();
+                currentPage = page;
+                updatePageInfo();
+                loadPage(currentPage);
+            }
+        }
+
+        function loadPage(page) {
+            const savedText = localStorage.getItem(`page_${page}`);
+            document.getElementById('textEditor').value = savedText || '';
+            updateStats();
+            showNotification(`📄 עמוד ${page}`);
+        }
+
+        function saveLastPosition() {
+            lastPosition = {
+                page: currentPage,
+                scrollTop: document.getElementById('textEditor').scrollTop
+            };
+            localStorage.setItem('lastPosition', JSON.stringify(lastPosition));
+        }
+
+        function goToLastPosition() {
+            const saved = localStorage.getItem('lastPosition');
+            if (saved) {
+                const pos = JSON.parse(saved);
+                if (pos.page !== currentPage) {
+                    currentPage = pos.page;
+                    updatePageInfo();
+                    loadPage(currentPage);
+                }
+                setTimeout(() => {
+                    document.getElementById('textEditor').scrollTop = pos.scrollTop;
+                }, 100);
+                showNotification('📍 חזרתי למקום שהפסקת');
+            }
+        }
+
+        // ===== PAGE LIST =====
+        function generatePageList() {
+            const grid = document.getElementById('pageGrid');
+            grid.innerHTML = '';
+            
+            for (let i = 1; i <= totalPages; i++) {
+                const item = document.createElement('div');
+                item.className = 'thumbnail-item';
+                if (i === currentPage) item.classList.add('current');
+                
+                item.innerHTML = `<div class="thumbnail-number">${i}</div>`;
+                item.onclick = () => {
+                    closePageList();
+                    if (i !== currentPage) {
+                        autoSave();
+                        currentPage = i;
+                        updatePageInfo();
+                        loadPage(i);
+                    }
+                };
+                grid.appendChild(item);
+            }
+        }
+
+        function showPageList() {
+            generatePageList();
+            document.getElementById('pageListModal').classList.add('active');
+        }
+
+        function closePageList() {
+            document.getElementById('pageListModal').classList.remove('active');
+        }
+
+        // ===== STATS =====
+        function updateStats() {
+            const text = document.getElementById('textEditor').value;
+            const wordCount = text.trim() ? text.trim().split(/\s+/).length : 0;
+            const charCount = text.length;
+            const lineCount = text.split('\n').length;
+            
+            document.getElementById('wordCount').textContent = wordCount;
+            document.getElementById('charCount').textContent = charCount;
+            document.getElementById('lineCount').textContent = lineCount;
+        }
+
+        // ===== ZOOM & PAN =====
+        function zoomPanel(panel, delta) {
+            const state = panelStates[panel];
+            state.zoom = Math.max(50, Math.min(300, state.zoom + delta));
+            
+            const container = document.getElementById(`${panel}ImageContainer`);
+            container.style.transform = `scale(${state.zoom / 100})`;
+            
+            showNotification(`זום: ${state.zoom}%`);
+        }
+
+        function resetPanelZoom(panel) {
+            panelStates[panel].zoom = 100;
+            document.getElementById(`${panel}ImageContainer`).style.transform = 'scale(1)';
+            document.getElementById(`${panel}ImageWrapper`).scrollLeft = 0;
+            document.getElementById(`${panel}ImageWrapper`).scrollTop = 0;
+            showNotification('זום אופס');
+        }
+
+        function setupWheelZoom() {
+            const wrapper = document.getElementById('topImageWrapper');
+            if (!wrapper) return;
+            
+            wrapper.addEventListener('wheel', (e) => {
+                if (e.ctrlKey) {
+                    e.preventDefault();
+                    const delta = e.deltaY > 0 ? -10 : 10;
+                    zoomPanel('top', delta);
+                }
+            }, { passive: false });
+        }
+
+        let panStartX, panStartY, panScrollLeft, panScrollTop, currentPanel;
+
+        function startPan(e, panel) {
+            if (e.button !== 0) return;
+            e.preventDefault();
+            isPanning = true;
+            currentPanel = panel;
+            
+            const wrapper = document.getElementById(`${panel}ImageWrapper`);
+            panStartX = e.clientX;
+            panStartY = e.clientY;
+            panScrollLeft = wrapper.scrollLeft;
+            panScrollTop = wrapper.scrollTop;
+            wrapper.style.cursor = 'grabbing';
+            
+            document.addEventListener('mousemove', doPan);
+            document.addEventListener('mouseup', stopPan);
+        }
+
+        function doPan(e) {
+            if (!isPanning) return;
+            e.preventDefault();
+            const wrapper = document.getElementById(`${currentPanel}ImageWrapper`);
+            const dx = e.clientX - panStartX;
+            const dy = e.clientY - panStartY;
+            wrapper.scrollLeft = panScrollLeft - dx;
+            wrapper.scrollTop = panScrollTop - dy;
+        }
+
+        function stopPan() {
+            if (!isPanning) return;
+            isPanning = false;
+            const wrapper = document.getElementById(`${currentPanel}ImageWrapper`);
+            wrapper.style.cursor = 'grab';
+            document.removeEventListener('mousemove', doPan);
+            document.removeEventListener('mouseup', stopPan);
+        }
+
+        // ===== RESIZE PANELS =====
+        let startX, startWidth;
+
+        function startResize(e, panelId, direction) {
+            e.preventDefault();
+            isDragging = true;
+            startX = e.clientX;
+            const panel = document.getElementById(panelId);
+            startWidth = panel.offsetWidth;
+            
+            document.addEventListener('mousemove', doResize);
+            document.addEventListener('mouseup', stopResize);
+        }
+
+        function doResize(e) {
+            if (!isDragging) return;
+            const deltaX = startX - e.clientX;
+            const newWidth = startWidth + deltaX;
+            const containerWidth = document.getElementById('mainContainer').offsetWidth;
+            const percentage = Math.max(20, Math.min(80, (newWidth / containerWidth) * 100));
+            
+            document.getElementById('imagesColumn').style.width = percentage + '%';
+            document.getElementById('editorColumn').style.width = (100 - percentage) + '%';
+        }
+
+        function stopResize() {
+            isDragging = false;
+            document.removeEventListener('mousemove', doResize);
+            document.removeEventListener('mouseup', stopResize);
+        }
+
+        // ===== CURSOR SYNC =====
+        function syncCursorToImages() {
+            // TODO: When OCR data available
+            const editor = document.getElementById('textEditor');
+            const cursorPos = editor.selectionStart;
+            const text = editor.value;
+            const textBeforeCursor = text.substring(0, cursorPos);
+            const currentLine = textBeforeCursor.split('\n').length;
+            
+            console.log('Current line:', currentLine);
+            // Highlight corresponding box when available
+        }
+
+        // ===== SEARCH & REPLACE =====
+        function toggleSearch() {
+            const modal = document.getElementById('searchModalFull');
+            modal.classList.toggle('active');
+        }
+
+        function renderTemplates() {
+            const list = document.getElementById('templatesList');
+            list.innerHTML = templates.map((t, i) => `
+                <div class="template-item">
+                    <div>
+                        <strong>${t.search}</strong> → ${t.replace}
+                    </div>
+                    <div class="template-actions">
+                        <button class="btn-use" onclick="useTemplate(${i})">השתמש</button>
+                        <button class="btn-edit" onclick="editTemplate(${i})">ערוך</button>
+                        <button class="btn-delete" onclick="deleteTemplate(${i})">מחק</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function useTemplate(index) {
+            const template = templates[index];
+            document.getElementById('searchText').value = template.search;
+            document.getElementById('replaceText').value = template.replace;
+        }
+
+        function editTemplate(index) {
+            const template = templates[index];
+            const newSearch = prompt('מה לחפש?', template.search);
+            const newReplace = prompt('במה להחליף?', template.replace);
+            
+            if (newSearch && newReplace) {
+                templates[index] = { search: newSearch, replace: newReplace };
+                localStorage.setItem('searchTemplates', JSON.stringify(templates));
+                renderTemplates();
+            }
+        }
+
+        function deleteTemplate(index) {
+            if (confirm('למחוק תבנית זו?')) {
+                templates.splice(index, 1);
+                localStorage.setItem('searchTemplates', JSON.stringify(templates));
+                renderTemplates();
+            }
+        }
+
+        function addTemplate() {
+            const search = prompt('מה לחפש?');
+            const replace = prompt('במה להחליף?');
+            
+            if (search && replace) {
+                templates.push({ search, replace });
+                localStorage.setItem('searchTemplates', JSON.stringify(templates));
+                renderTemplates();
+            }
+        }
+
+        function findNext() {
+            const searchText = document.getElementById('searchText').value;
+            const editor = document.getElementById('textEditor');
+            
+            if (!searchText) {
+                alert('אנא הזן טקסט לחיפוש');
+                return;
+            }
+            
+            const text = editor.value;
+            const start = editor.selectionEnd;
+            const index = text.indexOf(searchText, start);
+            
+            if (index !== -1) {
+                editor.focus();
+                editor.setSelectionRange(index, index + searchText.length);
+            } else {
+                alert('לא נמצאו תוצאות נוספות');
+            }
+        }
+
+        function replaceOne() {
+            const direction = document.querySelector('input[name="direction"]:checked').value;
+            
+            if (direction === 'up') {
+                if (!confirm('⚠️ החלפה למעלה עלולה למחוק עבודה שכבר עשית!\n\nהאם להמשיך?')) {
+                    return;
+                }
+            }
+            
+            const searchText = document.getElementById('searchText').value;
+            const replaceText = document.getElementById('replaceText').value;
+            const editor = document.getElementById('textEditor');
+            
+            const selectedText = editor.value.substring(editor.selectionStart, editor.selectionEnd);
+            
+            if (selectedText === searchText) {
+                const before = editor.value.substring(0, editor.selectionStart);
+                const after = editor.value.substring(editor.selectionEnd);
+                editor.value = before + replaceText + after;
+                updateStats();
+                showNotification('✅ הוחלף');
+                findNext();
+            } else {
+                findNext();
+            }
+        }
+
+        function replaceAll() {
+            const searchText = document.getElementById('searchText').value;
+            const replaceText = document.getElementById('replaceText').value;
+            const editor = document.getElementById('textEditor');
+            
+            if (!searchText) {
+                alert('אנא הזן טקסט לחיפוש');
+                return;
+            }
+            
+            const count = (editor.value.match(new RegExp(searchText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g')) || []).length;
+            
+            if (count === 0) {
+                alert('לא נמצאו תוצאות');
+                return;
+            }
+            
+            if (confirm(`להחליף ${count} מופעים?`)) {
+                const regex = new RegExp(searchText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g');
+                editor.value = editor.value.replace(regex, replaceText);
+                updateStats();
+                showNotification(`✅ הוחלפו ${count} מופעים`);
+            }
+        }
+
+        function replaceInBook() {
+            if (!confirm('⚠️ להחליף בכל 120 העמודים?\n\nזה לא ניתן לביטול!')) {
+                return;
+            }
+            
+            const searchText = document.getElementById('searchText').value;
+            const replaceText = document.getElementById('replaceText').value;
+            let totalCount = 0;
+            
+            for (let i = 1; i <= totalPages; i++) {
+                const pageText = localStorage.getItem(`page_${i}`) || '';
+                const regex = new RegExp(searchText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g');
+                const count = (pageText.match(regex) || []).length;
+                
+                if (count > 0) {
+                    const newText = pageText.replace(regex, replaceText);
+                    localStorage.setItem(`page_${i}`, newText);
+                    totalCount += count;
+                }
+            }
+            
+            loadPage(currentPage);
+            showNotification(`✅ הוחלפו ${totalCount} מופעים בכל הספר!`);
+        }
+
+        // ===== LAYOUT =====
+        function setLayout(num) {
+            const container = document.getElementById('mainContainer');
+            container.className = 'main-container';
+            container.classList.add(`layout-${num}`);
+            
+            document.querySelectorAll('.layout-switcher button').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            showNotification(`פריסה ${num} הופעלה`);
+        }
+
+        // ===== FULLSCREEN =====
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+                document.body.classList.add('fullscreen');
+            } else {
+                document.exitFullscreen();
+                document.body.classList.remove('fullscreen');
+            }
+        }
+
+        // ===== NOTIFICATIONS =====
+        function showNotification(message, duration = 2000) {
+            const notif = document.getElementById('notification');
+            notif.textContent = message;
+            notif.classList.add('show');
+            setTimeout(() => notif.classList.remove('show'), duration);
+        }
+
+        // ===== NAVIGATION =====
+        function goBack() {
+            if (confirm('לחזור לרשימת הספרים?\n\n(שינויים נשמרו אוטומטית)')) {
+                autoSave();
+                window.location.href = 'index-updated.html';
+            }
+        }
+
+        // ===== KEYBOARD SHORTCUTS =====
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 's') {
+                e.preventDefault();
+                saveDocument();
+            }
+            if (e.ctrlKey && e.key === 'f') {
+                e.preventDefault();
+                toggleSearch();
+            }
+            if (e.key === 'F11') {
+                e.preventDefault();
+                toggleFullscreen();
+            }
+            if (e.key === 'Escape') {
+                closePageList();
+                document.getElementById('searchModalFull').classList.remove('active');
+            }
+            if (e.altKey && e.key === 'ArrowLeft') {
+                e.preventDefault();
+                nextPage();
+            }
+            if (e.altKey && e.key === 'ArrowRight') {
+                e.preventDefault();
+                previousPage();
+            }
+        });
+
+        // ===== INIT =====
+        window.addEventListener('load', init);
+    </script>
+</body>
+</html>

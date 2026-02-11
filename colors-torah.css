@@ -1,0 +1,51 @@
+/* ערכת צבעים תורנית - ללא כחול */
+
+:root {
+    /* זהב - עיקרי */
+    --gold: #D4AF37;
+    --gold-light: #F4E4C1;
+    --gold-dark: #B8941F;
+    
+    /* חום עמוק - תורני ורציני */
+    --brown-dark: #3E2723;
+    --brown-medium: #5D4037;
+    --brown-light: #8D6E63;
+    --brown-lighter: #BCAAA4;
+    
+    /* ברונזה - יוקרתי */
+    --bronze: #CD7F32;
+    --bronze-light: #E8B88A;
+    --bronze-dark: #A0522D;
+    
+    /* אדום בורדו - כפתורים חשובים */
+    --burgundy: #800020;
+    --burgundy-light: #A0293A;
+    --burgundy-dark: #5C0017;
+    
+    /* ירוק זית - מרגיע */
+    --olive: #6B8E23;
+    --olive-light: #9ACD32;
+    --olive-dark: #556B2F;
+    
+    /* נייטרליים חמים */
+    --cream: #FAF7F2;
+    --ivory: #FFFFF0;
+    --beige: #F5F5DC;
+    --sand: #E8DCC4;
+    
+    /* גרדיאנטים */
+    --gradient-gold: linear-gradient(135deg, #D4AF37 0%, #F4E4C1 50%, #B8941F 100%);
+    --gradient-brown: linear-gradient(135deg, #3E2723 0%, #5D4037 50%, #8D6E63 100%);
+    --gradient-bronze: linear-gradient(135deg, #CD7F32 0%, #E8B88A 50%, #A0522D 100%);
+    --gradient-elegant: linear-gradient(135deg, #FAF7F2 0%, #FFFFF0 100%);
+    --gradient-warm: linear-gradient(135deg, #F4E4C1 0%, #E8DCC4 100%);
+}
+
+/* שימושים מומלצים:
+   - Header: var(--gradient-brown)
+   - כפתור ראשי: var(--gradient-gold) 
+   - כפתור משני: var(--gradient-bronze)
+   - כפתור חשוב: var(--burgundy)
+   - רקע: var(--gradient-elegant)
+   - טקסט: var(--brown-dark)
+*/
